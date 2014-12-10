@@ -50,6 +50,7 @@ namespace Chapter1_Wizard
 		{
 			_controller.ShowFirstStep();
 			ValidateButtons();
+			
 		}
 
 		/// <summary>

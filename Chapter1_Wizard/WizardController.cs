@@ -11,7 +11,7 @@ namespace Chapter1_Wizard
 	{
 
 		//当前步骤序号
-		private static int _currentIndex = 0;
+		private int _currentIndex = 0;
 		//用于保存所有的步骤窗体
 		private List<CommonForm> _steps;
 
@@ -106,8 +106,15 @@ namespace Chapter1_Wizard
 		/// </summary>
 		public void GoNextStep()
 		{
-			_steps[_currentIndex].Hide();
-			_steps[++_currentIndex].Show();
+			CommonForm oldStep = _steps[_currentIndex];
+			CommonForm newStep = _steps[_currentIndex + 1];
+
+		
+		
+			newStep.Show();
+			
+			_currentIndex++;
+			
 		}
 
 		/// <summary>
@@ -115,8 +122,14 @@ namespace Chapter1_Wizard
 		/// </summary>
 		public void GoPreviousStep()
 		{
-			_steps[_currentIndex].Hide();
-			_steps[--_currentIndex].Show();
+			CommonForm oldStep = _steps[_currentIndex];
+			CommonForm newStep = _steps[_currentIndex - 1];
+
+			//oldStep.Hide();
+			newStep.Left = oldStep.Left;
+			newStep.Top = oldStep.Top;
+			newStep.Show();
+			_currentIndex--;
 
 		}
 
@@ -133,6 +146,7 @@ namespace Chapter1_Wizard
 		/// </summary>
 		public void Finish()
 		{
+
 			_steps[_currentIndex].Hide();
 		}
 
@@ -141,6 +155,7 @@ namespace Chapter1_Wizard
 		/// </summary>
 		public void ShowFirstStep()
 		{
+			_steps[_currentIndex].Hide();
 			_steps[0].Show();
 		}
 
@@ -151,6 +166,12 @@ namespace Chapter1_Wizard
 		{
 			_steps[_currentIndex].Hide();
 			_steps[_steps.Count - 1].Show();
+		}
+
+		private void CopySizeAndPosition(CommonForm oldStep, CommonForm newStep)
+		{
+			newStep.Left = oldStep.Left;
+			newStep.Top = oldStep.Top;
 		}
 
 	}
